@@ -1,0 +1,34 @@
+<div class="bg-white p-6 rounded-xl shadow-md mb-8">
+  <h2 class="text-xl font-bold mb-4 text-gray-800">Registrar Nueva Venta</h2>
+
+  <form [formGroup]="salesForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div class="flex flex-col">
+      <label class="text-sm font-medium text-gray-600">Producto</label>
+      <input formControlName="producto" type="text" class="border rounded-lg p-2 focus:ring-2 focus:ring-blue-400 outline-none" placeholder="Ej: Leche">
+    </div>
+
+    <div class="flex flex-col">
+      <label class="text-sm font-medium text-gray-600">Categoría</label>
+      <select formControlName="categoria" class="border rounded-lg p-2 outline-none">
+        <option value="Abarrotes">Abarrotes</option>
+        <option value="Lácteos">Lácteos</option>
+        <option value="Bebidas">Bebidas</option>
+        <option value="Limpieza">Limpieza</option>
+      </select>
+    </div>
+
+    <div class="flex flex-col">
+      <label class="text-sm font-medium text-gray-600">Precio</label>
+      <input formControlName="precio" type="number" class="border rounded-lg p-2 outline-none">
+    </div>
+
+    <div class="flex flex-col">
+      <label class="text-sm font-medium text-gray-600">Cant.</label>
+      <input formControlName="cantidad" type="number" class="border rounded-lg p-2 outline-none">
+    </div>
+
+    <button type="submit" [disabled]="salesForm.invalid" class="md:col-span-4 bg-blue-600 text-white py-2 rounded-lg font-bold hover:bg-blue-700 disabled:bg-gray-300 transition-colors">
+      Guardar Venta
+    </button>
+  </form>
+</div>

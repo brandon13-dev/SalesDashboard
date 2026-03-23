@@ -14,4 +14,8 @@ export class SalesService {
   getVentas(): Observable<Venta[]>{
     return this.http.get<Venta[]>(this.apiUrl);
   }
+
+  postVenta(venta: Venta): Observable<Venta>{
+    return this.http.post<Venta>(this.apiUrl, venta);
+  }
 }
