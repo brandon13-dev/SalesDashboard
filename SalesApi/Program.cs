@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using SalesApi.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +14,8 @@ builder.Services.AddCors(option =>
     option.AddPolicy("AllowAngular",
     policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
+
+builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

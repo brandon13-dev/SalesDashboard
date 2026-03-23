@@ -7,7 +7,7 @@ public class Venta
     public string Categoria { get; set; } = string.Empty;
     public decimal Precio { get; set; }
     public int Cantidad { get; set; }
-    public DateTime Fecha { get; set; }
+    public DateTime Fecha { get; set; } = DateTime.Now;
 
     // Propiedad calculada para el total
     public decimal Total => Precio * Cantidad;
