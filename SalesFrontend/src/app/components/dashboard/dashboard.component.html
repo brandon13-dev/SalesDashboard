@@ -17,8 +17,20 @@
       <h2 class="text-2xl font-bold text-gray-800">{{ totalProductos }} unidades</h2>
     </div>
   </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
   <div class="bg-white p-6 rounded-xl shadow-md">
-    <h3 class="text-lg font-semibold mb-4 text-gray-700">Distribución de Ingresos por Producto</h3>
+    <h3 class="text-lg font-semibold mb-4 text-gray-700">Ventas por Producto</h3>
     <canvas id="myChart"></canvas>
   </div>
+
+  <div class="bg-white p-6 rounded-xl shadow-md">
+    <h3 class="text-lg font-semibold mb-4 text-gray-700">Participación por Categoría</h3>
+    <div class="max-w-[300px] mx-auto">
+        <canvas id="pieChart"></canvas>
+    </div>
+  </div>
+
+</div>
 </div>
