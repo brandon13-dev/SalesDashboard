@@ -30,6 +30,22 @@ app.UseHttpsRedirection();
 app.MapControllers();
 app.UseCors("AllowAngular");
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<DataContext>();
+        context.Database.Migrate();
+        Console.WriteLine("--> Base de datos preparada y actualizada");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"--> Error al migrar la base de datos: {ex.Message}");
+    }
+    
+}
+
 
 app.Run();
 
