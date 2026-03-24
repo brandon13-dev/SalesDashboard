@@ -137,4 +137,13 @@ export class DashboardComponent implements OnInit {
 
     doc.save(`Reporte_Ventas_${fecha}.pdf`);
   }
+
+  filtrar(inicio: string, fin: string){
+    if(!inicio || !fin) return;
+
+    this.salesService.getVentasPorRango(inicio, fin).subscribe(data => {
+      this.totalVentas = data.reduce((sum, item) => sum + item.total, 0);
+      this.renderCharts(data);
+    })
+  }
 }

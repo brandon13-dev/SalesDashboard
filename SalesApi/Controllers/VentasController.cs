@@ -29,4 +29,15 @@ public class VentasController : ControllerBase
         await _context.SaveChangesAsync();
         return Ok(venta);
     }
+
+    [HttpGet("filtrar")]
+    public async Task<ActionResult<IEnumerable<Venta>>> GetVentasPorFecha(
+        [FromQuery] DateTime inicio,
+        [FromQuery] DateTime fin
+    )
+    {
+        var ventasFiltradas = await _context.Ventas.Where(v => v.Fecha.Date >= inicio.Date && v.Fecha.Date <= fin.Date).OrderByDescending(v => v.Fecha).ToListAsync();
+
+        return Ok(ventasFiltradas);
+    }
 }

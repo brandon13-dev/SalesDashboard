@@ -25,6 +25,22 @@
     </div>
   </div>
 
+  <div class="bg-white p-4 rounded-lg shadow mb-6 flex gap-4 items-end">
+    <div>
+      <label class="block text-xs font-bold text-gray-500 uppercase">Desde</label>
+      <input type="date" #fechaInicio class="border rounded p-2">
+    </div>
+    <div>
+      <label class="block text-xs font-bold text-gray-500 uppercase">Hasta</label>
+      <input type="date" #fechaFin class="border rounded p-2">
+    </div>
+    <button
+      (click)="filtrar(fechaInicio.value, fechaFin.value)"
+      class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700">
+      Filtrar Datos
+    </button>
+  </div>
+
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
   <div class="bg-white p-6 rounded-xl shadow-md">

@@ -37,6 +37,9 @@ using (var scope = app.Services.CreateScope())
     {
         var context = services.GetRequiredService<DataContext>();
         context.Database.Migrate();
+
+        DbInitilizer.Seed(context);
+
         Console.WriteLine("--> Base de datos preparada y actualizada");
     }
     catch (Exception ex)
