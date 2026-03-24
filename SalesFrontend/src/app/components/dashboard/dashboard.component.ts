@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
       this.promedioVenta = data.length > 0 ? this.totalVentas / data.length: 0;
 
       // Renderizar las graficas
-      this.renderCharts(data);
+      this.renderCharts(data.sort((a, b) => b.total - a.total));
     });
   }
 
@@ -48,13 +48,15 @@ export class DashboardComponent implements OnInit {
     if (this.chartBarra) this.chartBarra.destroy();
     if (this.chartDona) this.chartDona.destroy();
 
+    const top5 = data.slice(0, 5);
+
     this.chartBarra = new Chart('myChart', {
       type: 'bar',
       data: {
-        labels: data.map(v => v.producto),
+        labels: top5.map(v => v.producto),
         datasets: [{
           label: 'Total por Producto ($)',
-          data: data.map(v => v.total),
+          data: top5.map(v => v.total),
           backgroundColor: '#42A5F5'
         }]
       }
