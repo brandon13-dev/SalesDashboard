@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   chartDonaMetodosPago: any;
   datosActuales: any[] = [];
   metricaActual: string = 'total';
+  datosFiltrados: any[] = [];
 
   constructor(private salesService: SalesService) {}
 
@@ -36,6 +37,7 @@ export class DashboardComponent implements OnInit {
   cargarDatos() {
     this.salesService.getVentas().subscribe((data) => {
       this.datosActuales = data;
+      this.datosFiltrados = data;
       // Calculos
       this.totalVentas = data.reduce((sum, item) => sum + item.total, 0);
       this.totalProductos = data.reduce((sum, item) => sum + item.cantidad, 0);
@@ -236,5 +238,18 @@ export class DashboardComponent implements OnInit {
         error: (err) => alert('Error al eliminar: ' + err.message),
       });
     }
+  }
+
+  buscar(termino: string){
+    if(!termino) {
+      this.datosFiltrados = this.datosActuales;
+      return;
+    }
+
+    const busqueda = termino.toLowerCase();
+
+    this.datosFiltrados = this.datosActuales.filter(v =>
+      v.producto.toLowerCase().includes(busqueda) || v.categoria.toLowerCase().includes(busqueda)
+    );
   }
 }

@@ -96,7 +96,18 @@
     </div>
   </div>
 
-  <div class="mt-8 bg-white shadow-md rounded-lg overflow-hidden">
+  <div class="mt-8 flex items-center bg-white p-4 rounded-lg shadow-sm">
+    <div class="relative w-full">
+      <input
+        type="text"
+        #txtBuscar
+        (input)="buscar(txtBuscar.value)"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+        placeholder="Buscar por producto o categoría...">
+    </div>
+  </div>
+
+  <div class="mt-0 bg-white shadow-md rounded-lg overflow-hidden">
     <table class="min-w-full leading-normal">
       <thead>
         <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
@@ -109,7 +120,7 @@
       </thead>
       <tbody class="text-gray-600 text-sm font-light">
         <tr
-          *ngFor="let v of datosActuales"
+          *ngFor="let v of datosFiltrados"
           class="border-b border-gray-200 hover:bg-gray-100"
         >
           <td class="py-3 px-6 text-left font-medium">{{ v.producto }}</td>
