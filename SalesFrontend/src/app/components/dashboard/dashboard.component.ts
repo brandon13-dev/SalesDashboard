@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
+import { Chart, plugins, registerables } from 'chart.js';
 import { SalesService } from '../../services/sales.service';
 import { CommonModule } from '@angular/common';
 import jsPDF from 'jspdf';
@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
   totalProductos: number = 0;
   chartBarra: any;
   chartDona: any;
+  chartDonaMetodosPago: any;
   datosActuales: any[] = [];
   metricaActual: string = 'total';
 
@@ -48,6 +49,7 @@ export class DashboardComponent implements OnInit {
   renderCharts(data: any[]) {
     if (this.chartBarra) this.chartBarra.destroy();
     if (this.chartDona) this.chartDona.destroy();
+    if (this.chartDonaMetodosPago) this.chartDonaMetodosPago.destroy();
 
     const top5 = data.slice(0, 5);
 
@@ -121,6 +123,31 @@ export class DashboardComponent implements OnInit {
         },
       },
     });
+
+    const metodos = data.reduce((acc, curr) => {
+      acc[curr.metodoPago] = (acc[curr.metodoPago] || 0) + curr.total;
+      return acc;
+    }, {});
+
+    this.chartDonaMetodosPago = new Chart('pieChartPago', {
+      type: 'doughnut',
+      data: {
+        labels: Object.keys(metodos),
+        datasets: [
+          {
+            data: Object.values(metodos),
+            backgroundColor: ['#42A5F5', '#66BB6A', '#FFA726'],
+            hoverOffset: 4,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom' },
+        },
+      },
+    });
   }
 
   generarPDF() {
@@ -147,13 +174,16 @@ export class DashboardComponent implements OnInit {
     // Tabla de datos
     autoTable(doc, {
       startY: 80,
-      head: [['Producto', 'Categoría', 'Precio', 'Cant.', 'Total']],
+      head: [
+        ['Producto', 'Categoría', 'Precio', 'Cant.', 'Total', 'Met. Pago'],
+      ],
       body: this.datosActuales.map((v) => [
         v.producto,
         v.categoria,
         `$${v.precio}`,
         v.cantidad,
         `$${v.total}`,
+        v.metodoPago,
       ]),
       theme: 'grid',
       headStyles: { fillColor: [41, 128, 185] },
