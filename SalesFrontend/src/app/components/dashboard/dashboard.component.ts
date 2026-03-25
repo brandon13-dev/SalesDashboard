@@ -252,4 +252,9 @@ export class DashboardComponent implements OnInit {
       v.producto.toLowerCase().includes(busqueda) || v.categoria.toLowerCase().includes(busqueda)
     );
   }
+
+  editar(venta: any){
+    this.salesService.enviarVentaAEditar(venta);
+    window.scrollTo({ top: 0, behavior: 'smooth'});
+  }
 }

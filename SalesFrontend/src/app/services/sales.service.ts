@@ -11,6 +11,15 @@ export class SalesService {
   private apiUrl = 'http://localhost:5207/api/Ventas';
 
   private _refreshNeeded$ = new Subject<void>();
+  private _ventaParaEditar$ = new Subject<Venta>();
+
+  enviarVentaAEditar(venta: Venta){
+    this._ventaParaEditar$.next(venta);
+  }
+
+  get ventaParaEditar$(){
+    return this._ventaParaEditar$.asObservable();
+  }
 
   get refreshNeeded$() {
     return this._refreshNeeded$;
@@ -41,6 +50,12 @@ export class SalesService {
       tap(() => {
         this._refreshNeeded$.next();
       }),
+    );
+  }
+
+  updateVenta(id: number, venta: Venta):Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${id}`, venta).pipe(
+      tap(() => this._refreshNeeded$.next())
     );
   }
 }

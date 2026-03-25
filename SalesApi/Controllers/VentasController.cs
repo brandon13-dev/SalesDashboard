@@ -51,4 +51,23 @@ public class VentasController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutVenta(int id, Venta venta)
+    {
+        if(id != venta.Id) return BadRequest();
+
+        _context.Entry(venta).State = EntityState.Modified;
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!_context.Ventas.Any(e => e.Id == id)) return NotFound();
+            else throw;
+        }
+        return NoContent();
+    }
 }

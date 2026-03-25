@@ -17,6 +17,8 @@ import { SalesService } from '../../services/sales.service';
 })
 export class SalesFormComponent implements OnInit {
   salesForm!: FormGroup;
+  esEdicion = false;
+  idEdicion?:  number;
 
   constructor(
     private fb: FormBuilder,
@@ -31,23 +33,42 @@ export class SalesFormComponent implements OnInit {
       cantidad: [1, [Validators.required, Validators.min(1)]],
       metodoPago: ['Efectivo', Validators.required],
     });
+
+    this.salesService.ventaParaEditar$.subscribe(venta => {
+      this.esEdicion = true;
+      this.idEdicion = venta.id;
+      this.salesForm.patchValue(venta);
+    })
   }
 
   onSubmit() {
     if (this.salesForm.valid) {
-      this.salesService.postVenta(this.salesForm.value).subscribe({
-        next: (res) => {
-          alert('Venta registrada con éxito');
-          this.salesForm.reset({
+      const venta = this.salesForm.value;
+
+      if(this.esEdicion && this.idEdicion){
+        this.salesService.updateVenta(this.idEdicion, { ...venta, id: this.idEdicion}).subscribe({
+          next: () => this.finalizarAccion('Venta actualizada'),
+          error: (err) => console.error(err)
+        });
+      } else {
+        this.salesService.postVenta(venta).subscribe({
+          next: () => this.finalizarAccion('Venta Registrada'),
+          error: (err) => console.error(err)
+        });
+      }
+    }
+  }
+
+  finalizarAccion(mensaje: string){
+    alert(mensaje);
+    this.esEdicion = false;
+    this.idEdicion = undefined;
+    this.salesForm.reset({
             cantidad: 1,
             metodoPago: 'Efectivo',
             precio: 0,
             producto: '',
-            categoria: '',
+            categoria: 'Abarrotes',
           });
-        },
-        error: (err) => console.error('Error al guardar', err),
-      });
-    }
   }
 }
