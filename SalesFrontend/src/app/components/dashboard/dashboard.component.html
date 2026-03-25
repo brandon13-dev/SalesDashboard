@@ -3,57 +3,87 @@
     <h1 class="text-3xl font-bold text-gray-800">Panel de Ventas</h1>
     <button
       (click)="generarPDF()"
-      class="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors flex items-center gap-2">
+      class="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors flex items-center gap-2"
+    >
       <span>Descargar Reporte PDF</span>
     </button>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
     <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-500">
-      <p class="text-sm text-gray-500 uppercase font-semibold">Ventas Totales</p>
-      <h2 class="text-2xl font-bold text-gray-800">${{ totalVentas | number:'1.2-2'}}</h2>
+      <p class="text-sm text-gray-500 uppercase font-semibold">
+        Ventas Totales
+      </p>
+      <h2 class="text-2xl font-bold text-gray-800">
+        ${{ totalVentas | number: "1.2-2" }}
+      </h2>
     </div>
 
     <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-green-500">
-      <p class="text-sm text-gray-500 uppercase font-semibold">Ticket Promedio</p>
-      <h2 class="text-2xl font-bold text-gray-800">$ {{ promedioVenta | number:'1.2-2' }}</h2>
+      <p class="text-sm text-gray-500 uppercase font-semibold">
+        Ticket Promedio
+      </p>
+      <h2 class="text-2xl font-bold text-gray-800">
+        $ {{ promedioVenta | number: "1.2-2" }}
+      </h2>
     </div>
 
     <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-purple-500">
-      <p class="text-sm text-gray-500 uppercase font-semibold">Productos Vendidos</p>
-      <h2 class="text-2xl font-bold text-gray-800">{{ totalProductos }} unidades</h2>
+      <p class="text-sm text-gray-500 uppercase font-semibold">
+        Productos Vendidos
+      </p>
+      <h2 class="text-2xl font-bold text-gray-800">
+        {{ totalProductos }} unidades
+      </h2>
     </div>
   </div>
 
   <div class="bg-white p-4 rounded-lg shadow mb-6 flex gap-4 items-end">
     <div>
-      <label class="block text-xs font-bold text-gray-500 uppercase">Desde</label>
-      <input type="date" #fechaInicio class="border rounded p-2">
+      <label class="block text-xs font-bold text-gray-500 uppercase"
+        >Desde</label
+      >
+      <input type="date" #fechaInicio class="border rounded p-2" />
     </div>
     <div>
-      <label class="block text-xs font-bold text-gray-500 uppercase">Hasta</label>
-      <input type="date" #fechaFin class="border rounded p-2">
+      <label class="block text-xs font-bold text-gray-500 uppercase"
+        >Hasta</label
+      >
+      <input type="date" #fechaFin class="border rounded p-2" />
     </div>
     <button
       (click)="filtrar(fechaInicio.value, fechaFin.value)"
-      class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700">
+      class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700"
+    >
       Filtrar Datos
     </button>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="bg-white p-6 rounded-xl shadow-md">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-semibold text-gray-700">Top 5 Productos</h3>
 
-  <div class="bg-white p-6 rounded-xl shadow-md">
-    <h3 class="text-lg font-semibold mb-4 text-gray-700">Top 5 Productos más ingresos</h3>
-    <canvas id="myChart"></canvas>
-  </div>
+        <select
+          #metricaSelect
+          (change)="cambiarMetrica(metricaSelect.value)"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2"
+        >
+          <option value="total">Por Ingresos ($)</option>
+          <option value="cantidad">Por Unidades Vendidas</option>
+        </select>
+      </div>
 
-  <div class="bg-white p-6 rounded-xl shadow-md">
-    <h3 class="text-lg font-semibold mb-4 text-gray-700">Participación por Categoría</h3>
-    <div class="max-w-[300px] mx-auto">
+      <canvas id="myChart"></canvas>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow-md">
+      <h3 class="text-lg font-semibold mb-4 text-gray-700">
+        Participación por Categoría
+      </h3>
+      <div class="max-w-[300px] mx-auto">
         <canvas id="pieChart"></canvas>
+      </div>
     </div>
   </div>
-
-</div>
 </div>
