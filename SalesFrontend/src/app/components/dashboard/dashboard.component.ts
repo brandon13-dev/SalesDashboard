@@ -228,4 +228,13 @@ export class DashboardComponent implements OnInit {
 
     this.renderCharts(datosOrdenados);
   }
+
+  eliminar(id: number) {
+    if (confirm('¿Estás seguro de que deseas eliminar esta venta?')) {
+      this.salesService.deleteVenta(id).subscribe({
+        next: () => console.log('Venta eliminada'),
+        error: (err) => alert('Error al eliminar: ' + err.message),
+      });
+    }
+  }
 }

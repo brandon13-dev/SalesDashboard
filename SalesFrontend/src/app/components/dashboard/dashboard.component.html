@@ -95,4 +95,44 @@
       </div>
     </div>
   </div>
+
+  <div class="mt-8 bg-white shadow-md rounded-lg overflow-hidden">
+    <table class="min-w-full leading-normal">
+      <thead>
+        <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+          <th class="py-3 px-6 text-left">Producto</th>
+          <th class="py-3 px-6 text-left">Categoría</th>
+          <th class="py-3 px-6 text-center">Método</th>
+          <th class="py-3 px-6 text-center">Total</th>
+          <th class="py-3 px-6 text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-600 text-sm font-light">
+        <tr
+          *ngFor="let v of datosActuales"
+          class="border-b border-gray-200 hover:bg-gray-100"
+        >
+          <td class="py-3 px-6 text-left font-medium">{{ v.producto }}</td>
+          <td class="py-3 px-6 text-left">{{ v.categoria }}</td>
+          <td class="py-3 px-6 text-center">
+            <span
+              class="bg-blue-200 text-blue-700 py-1 px-3 rounded-full text-xs"
+              >{{ v.metodoPago }}</span
+            >
+          </td>
+          <td class="py-3 px-6 text-center">
+            ${{ v.total | number: "1.2-2" }}
+          </td>
+          <td class="py-3 px-6 text-center">
+            <button
+              (click)="eliminar(v.id)"
+              class="text-red-500 hover:text-red-700 transition-colors"
+            >
+              Eliminar 🗑️
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

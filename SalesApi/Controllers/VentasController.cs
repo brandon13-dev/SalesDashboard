@@ -40,4 +40,15 @@ public class VentasController : ControllerBase
 
         return Ok(ventasFiltradas);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteVenta(int id){
+        var venta = await _context.Ventas.FindAsync(id);
+        if(venta == null) return NotFound();
+
+        _context.Ventas.Remove(venta);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
 }
