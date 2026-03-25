@@ -1,15 +1,27 @@
 <div class="bg-white p-6 rounded-xl shadow-md mb-8">
   <h2 class="text-xl font-bold mb-4 text-gray-800">Registrar Nueva Venta</h2>
 
-  <form [formGroup]="salesForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+  <form
+    [formGroup]="salesForm"
+    (ngSubmit)="onSubmit()"
+    class="grid grid-cols-1 md:grid-cols-4 gap-4"
+  >
     <div class="flex flex-col">
       <label class="text-sm font-medium text-gray-600">Producto</label>
-      <input formControlName="producto" type="text" class="border rounded-lg p-2 focus:ring-2 focus:ring-blue-400 outline-none" placeholder="Ej: Leche">
+      <input
+        formControlName="producto"
+        type="text"
+        class="border rounded-lg p-2 focus:ring-2 focus:ring-blue-400 outline-none"
+        placeholder="Ej: Leche"
+      />
     </div>
 
     <div class="flex flex-col">
       <label class="text-sm font-medium text-gray-600">Categoría</label>
-      <select formControlName="categoria" class="border rounded-lg p-2 outline-none">
+      <select
+        formControlName="categoria"
+        class="border rounded-lg p-2 outline-none"
+      >
         <option value="Abarrotes">Abarrotes</option>
         <option value="Lácteos">Lácteos</option>
         <option value="Bebidas">Bebidas</option>
@@ -19,15 +31,41 @@
 
     <div class="flex flex-col">
       <label class="text-sm font-medium text-gray-600">Precio</label>
-      <input formControlName="precio" type="number" class="border rounded-lg p-2 outline-none">
+      <input
+        formControlName="precio"
+        type="number"
+        class="border rounded-lg p-2 outline-none"
+      />
     </div>
 
     <div class="flex flex-col">
       <label class="text-sm font-medium text-gray-600">Cant.</label>
-      <input formControlName="cantidad" type="number" class="border rounded-lg p-2 outline-none">
+      <input
+        formControlName="cantidad"
+        type="number"
+        class="border rounded-lg p-2 outline-none"
+      />
     </div>
 
-    <button type="submit" [disabled]="salesForm.invalid" class="md:col-span-4 bg-blue-600 text-white py-2 rounded-lg font-bold hover:bg-blue-700 disabled:bg-gray-300 transition-colors">
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2"
+        >Método de Pago</label
+      >
+      <select
+        formControlName="metodoPago"
+        class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      >
+        <option value="Efectivo">Efectivo</option>
+        <option value="Tarjeta">Tarjeta</option>
+        <option value="Transferencia">Transferencia</option>
+      </select>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="salesForm.invalid"
+      class="md:col-span-4 bg-blue-600 text-white py-2 rounded-lg font-bold hover:bg-blue-700 disabled:bg-gray-300 transition-colors"
+    >
       Guardar Venta
     </button>
   </form>

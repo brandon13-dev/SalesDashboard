@@ -11,4 +11,7 @@ public class Venta
 
     // Propiedad calculada para el total
     public decimal Total => Precio * Cantidad;
+
+    // Propiedad para el metodo de pago
+    public string MetodoPago { get; set; } = "Efectivo";
 }
